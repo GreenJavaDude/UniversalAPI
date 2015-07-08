@@ -2,7 +2,7 @@ package com.greenjavadude.Utilities;
 
 import java.io.*;
 
-public class Saver {
+public class Saver{
 	public boolean saveToSer(Object obj, String path){
 		boolean success = false;
 		try{

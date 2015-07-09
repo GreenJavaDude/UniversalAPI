@@ -19,6 +19,7 @@ public class Engine extends JPanel implements Runnable{
 		frame.setSize(width, height);
 		frame.setVisible(true);
 		this.setSize(width, height);
+		frame.setLocationRelativeTo(null);
 		frame.add(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		inputHandler = new InputHandler();

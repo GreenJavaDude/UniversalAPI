@@ -1,4 +1,4 @@
-package com.greenjavadude.GameEngine;
+package com.greenjavadude.UniversalAPI.GameEngine;
 
 public class Key {
 	private boolean pressed;

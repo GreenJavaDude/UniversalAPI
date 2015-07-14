@@ -1,4 +1,4 @@
-package com.greenjavadude.Utilities;
+package com.greenjavadude.UniversalAPI.Utilities;
 
 import javax.swing.JOptionPane;
 

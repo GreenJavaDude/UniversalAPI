@@ -1,4 +1,4 @@
-package com.greenjavadude.GameEngine;
+package com.greenjavadude.UniversalAPI.GameEngine;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

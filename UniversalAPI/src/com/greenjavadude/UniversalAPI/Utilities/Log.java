@@ -1,5 +1,7 @@
 package com.greenjavadude.UniversalAPI.Utilities;
 
+import java.io.PrintWriter;
+
 import javax.swing.JTextArea;
 
 public class Log {
@@ -10,36 +12,32 @@ public class Log {
 	
 	private JTextArea display;
 	private boolean console;
+	private PrintWriter writer;
 	
-	public Log(){
-		display = null;
-		console = false;
+	/**Creates a new Log
+	 * 
+	 * @param enableConsole enables/disables console output
+	 * @param pathToSave path to log file, if you don't want a log file, say null
+	 * @param display JTextArea to which will be used as a log, if you don't want that, say null
+	 */
+	public Log(boolean enableConsole, String pathToSave, JTextArea display){
+		this.display = display;
+		console = enableConsole;
+		try{
+			writer = new PrintWriter(pathToSave);
+		}catch(Exception e){
+			writer = null;
+			log("Failed to initialize writer", LOGGER);
+		}
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run(){
 				log("Log stopped", LOGGER);
+				if(writer != null){
+					saveLog();
+				}
 			}
 		});
-	}
-	
-	public Log(JTextArea textarea){
-		this();
-		display = textarea;
-		
-		log("Log started", LOGGER);
-	}
-	
-	public Log(boolean consoleLogging){
-		this();
-		console = consoleLogging;
-		
-		log("Log started", LOGGER);
-	}
-	
-	public Log(JTextArea textarea, boolean consoleLogging){
-		this();
-		display = textarea;
-		console = consoleLogging;
 		
 		log("Log started", LOGGER);
 	}
@@ -65,5 +63,13 @@ public class Log {
 		if(display != null){
 			display.append(text);
 		}
-	}	
+		if(writer != null){
+			writer.write(text);
+		}
+	}
+	
+	private void saveLog(){
+		writer.flush();
+		writer.close();
+	}
 }

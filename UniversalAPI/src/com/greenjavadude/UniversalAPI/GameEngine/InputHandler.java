@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class InputHandler implements KeyListener{
-	
 	private Key up;
 	private Key down;
 	private Key left;
@@ -86,5 +85,49 @@ public class InputHandler implements KeyListener{
 		default:
 			break;
 		}
+	}
+	
+	public boolean isUp(){
+		return up.getPressed();
+	}
+	
+	public boolean isDown(){
+		return down.getPressed();
+	}
+	
+	public boolean isLeft(){
+		return left.getPressed();
+	}
+	
+	public boolean isRight(){
+		return right.getPressed();
+	}
+	
+	public boolean isW(){
+		return w.getPressed();
+	}
+	
+	public boolean isA(){
+		return a.getPressed();
+	}
+	
+	public boolean isS(){
+		return s.getPressed();
+	}
+	
+	public boolean isD(){
+		return d.getPressed();
+	}
+	
+	public boolean isSpacebar(){
+		return spacebar.getPressed();
+	}
+	
+	public boolean isEnter(){
+		return enter.getPressed();
+	}
+	
+	public boolean isShift(){
+		return shift.getPressed();
 	}
 }

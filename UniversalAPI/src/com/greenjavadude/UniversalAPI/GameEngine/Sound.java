@@ -6,27 +6,30 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class Sound implements Runnable{
+	public static final int SINGLE = 0;
+	public static final int LOOP = 1;
+	
 	private File file;
-	private SoundMode mode;
+	private int mode;
 	private MediaPlayer mp;
 	
 	public void run(){
-		if(mode.equals(SoundMode.LOOP)){
+		if(mode == 1){
 			mp.setCycleCount(MediaPlayer.INDEFINITE);
 			mp.play();
 		}
-		if(mode.equals(SoundMode.SINGLE)){
+		if(mode == 0){
 			mp.play();
 			this.stop();
 		}
 	}
 	
-	public void play(String path, SoundMode mode){
+	public void play(String path, int mode){
 		file = new File(path);
 		this.mode = mode;
 		try{
 			//this is used to initialize some stuff for the music
-			//the music is from javafx so this is necessary
+			//the music is from the javafx package so this is necessary
 			JFXPanel panel = new JFXPanel();
 			panel.setEnabled(false);//if i don't use it's yellow
 			
@@ -41,7 +44,6 @@ public class Sound implements Runnable{
 	
 	public void stop(){
 		mp.stop();
-		mode = null;
 		file = null;
 		mp.dispose();
 	}

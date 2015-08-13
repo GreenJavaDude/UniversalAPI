@@ -4,14 +4,14 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 
-public class Engine extends JPanel implements Runnable{
+public class Game extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
 	private boolean running;
 	private int width;
 	private int height;
 	private InputHandler inputHandler;
 	
-	public Engine(String title, int width, int height){
+	public Game(String title, int width, int height){
 		running = false;
 		this.width = width;
 		this.height = height;

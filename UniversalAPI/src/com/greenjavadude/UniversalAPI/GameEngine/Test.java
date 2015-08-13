@@ -2,10 +2,10 @@ package com.greenjavadude.UniversalAPI.GameEngine;
 
 import java.awt.Graphics2D;
 
-public class Test extends Engine{
+public class Test extends Game{
 	/**@author Green Java Dude
 	 * 
-	 * An example program that is explained.
+	 * An example program that explains how stuff works.
 	 */
 	
 	private static final long serialVersionUID = 1L;
@@ -28,11 +28,11 @@ public class Test extends Engine{
 	}
 	
 	public static void main(String[] args){
-		Test engine = new Test("A Test Program", 800, 500);
+		Test game = new Test("A Test Program", 800, 500);
 		//Sound sound = new Sound();
 		
 		//sound.play("insert .wav path here", SoundMode.LOOP);
-		engine.start();
+		game.start();
 		
 		try{
 			Thread.sleep(10000);
@@ -41,7 +41,9 @@ public class Test extends Engine{
 		}
 		
 		//sound.stop();
-		engine.stop();
+		game.stop();
 		//engine.stop() must be called last as it exits the program
+		
+		//if you want to do custom stuff at shutdown add a shutdown hook
 	}
 }

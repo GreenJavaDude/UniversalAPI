@@ -42,6 +42,11 @@ public class Log {
 		log("Log started", LOGGER);
 	}
 	
+	/**Logs a message
+	 * 
+	 * @param message the message that will be logged
+	 * @param type use for example Log.INFO to log info messages
+	 */
 	public void log(String message, int type){
 		switch(type){
 		case INFO:

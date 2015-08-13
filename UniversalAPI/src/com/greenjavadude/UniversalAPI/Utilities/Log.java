@@ -6,7 +6,6 @@ import javax.swing.JTextArea;
 
 public class Log {
 	private static final int LOGGER = -1;
-	
 	public static final int INFO = 0;
 	public static final int ERROR = 1;
 	
@@ -14,20 +13,26 @@ public class Log {
 	private boolean console;
 	private PrintWriter writer;
 	
+	private boolean debugmode;
+	
 	/**Creates a new Log
 	 * 
 	 * @param enableConsole enables/disables console output
 	 * @param pathToSave path to log file, if you don't want a log file, say null
 	 * @param display JTextArea to which will be used as a log, if you don't want that, say null
+	 * @param debug set to true to display debug information
 	 */
-	public Log(boolean enableConsole, String pathToSave, JTextArea display){
+	public Log(boolean enableConsole, String pathToSave, JTextArea display, boolean debugg){
 		this.display = display;
 		console = enableConsole;
-		try{
-			writer = new PrintWriter(pathToSave);
-		}catch(Exception e){
-			writer = null;
-			log("Failed to initialize writer", LOGGER);
+		debugmode = debugg;
+		if(pathToSave != null){
+			try{
+				writer = new PrintWriter(pathToSave);
+			}catch(Exception e){
+				writer = null;
+				log("Failed to initialize writer", LOGGER);
+			}
 		}
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){
@@ -59,6 +64,12 @@ public class Log {
 		case LOGGER:
 			display("LOG: " + message + "\n");
 			break;
+		}
+	}
+	
+	public void debug(String message){
+		if(debugmode){
+			display("DEBUG: " + message + "\n");
 		}
 	}
 	

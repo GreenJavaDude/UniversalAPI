@@ -29,9 +29,9 @@ public class Test extends Game{
 	
 	public static void main(String[] args){
 		Test game = new Test("A Test Program", 800, 500);
-		//Sound sound = new Sound();
+		Sound sound = new Sound();
 		
-		//sound.play("insert .wav path here", SoundMode.LOOP);
+		sound.play("insert .wav path here", Sound.LOOP);
 		game.start();
 		
 		try{
@@ -40,9 +40,10 @@ public class Test extends Game{
 			
 		}
 		
-		//sound.stop();
+		sound.stop();
 		game.stop();
-		//engine.stop() must be called last as it exits the program
+		
+		//game.stop() must be called last as it exits the program
 		
 		//if you want to do custom stuff at shutdown add a shutdown hook
 	}

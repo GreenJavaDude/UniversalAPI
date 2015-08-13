@@ -34,7 +34,8 @@ public class Log {
 			public void run(){
 				log("Log stopped", LOGGER);
 				if(writer != null){
-					saveLog();
+					writer.flush();
+					writer.close();
 				}
 			}
 		});
@@ -71,10 +72,5 @@ public class Log {
 		if(writer != null){
 			writer.write(text);
 		}
-	}
-	
-	private void saveLog(){
-		writer.flush();
-		writer.close();
 	}
 }

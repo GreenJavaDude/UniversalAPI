@@ -20,12 +20,12 @@ public class Log {
 	 * @param enableConsole enables/disables console output
 	 * @param pathToSave path to log file, if you don't want a log file, say null
 	 * @param display JTextArea to which will be used as a log, if you don't want that, say null
-	 * @param debug set to true to display debug information
+	 * @param debug enables/disables debug information
 	 */
-	public Log(boolean enableConsole, String pathToSave, JTextArea display, boolean debugg){
+	public Log(boolean enableConsole, String pathToSave, JTextArea display, boolean debug){
 		this.display = display;
 		console = enableConsole;
-		debugmode = debugg;
+		debugmode = debug;
 		if(pathToSave != null){
 			try{
 				writer = new PrintWriter(pathToSave);

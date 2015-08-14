@@ -2,13 +2,14 @@ package com.greenjavadude.UniversalAPI.Utilities;
 
 import java.io.*;
 
-public class Saver{
+public class Saver {
 	public boolean saveToSer(Object obj, String path){
 		boolean success = false;
 		try{
 			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path));
 			try{
 				oos.writeObject(obj);
+				oos.flush();
 				success = true;
 			}finally{
 				oos.close();
@@ -34,43 +35,43 @@ public class Saver{
 		return obj;
 	}
 	
-	public static boolean saveStringToTXT(String path, String string) {
-		BufferedWriter bw = null;
+	public static boolean saveStringToFile(String path, String string){
 		boolean success = false;
+		
 		try{
-			bw = new BufferedWriter(new FileWriter(path));
+			PrintWriter pw = new PrintWriter(path);
 			try{
-				bw.write(string);
+				pw.write(string);
+				pw.flush();
 				success = true;
 			}finally{
-				bw.close();
+				pw.close();
 			}
 		}catch(Exception e){
 			
 		}
+		
 		return success;
 	}
 	
-	public static String getStringFromFile(String fileName) {
-		BufferedReader br = null;
-		StringBuilder sb = new StringBuilder();
-		String result=null;
-		try{
-			br = new BufferedReader(new FileReader(fileName));
-			try{
-				String s;
-				while((s = br.readLine()) != null){
-					//add enter because removed by readline()
-					sb.append(s);
-					sb.append("\n");
-				}
-			}finally{
-				br.close();
-			}
-		}catch(Exception e){
-			
-		}
-		result = sb.toString();
-		return result;
+	public static String getStringFromFile(String path){
+	    String result = "";
+	    BufferedReader br;
+	    
+	    try{
+	    	br = new BufferedReader(new FileReader(path));
+	    	String line;
+	    	try{
+	    		while((line = br.readLine()) != null){
+	    			result += line + "\n";
+	    		}
+	    	}finally{
+	    		br.close();
+	    	}
+	    }catch(Exception e){
+	    	
+	    }
+	    
+	    return result;
 	}
 }

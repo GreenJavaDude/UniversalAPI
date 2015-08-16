@@ -1,4 +1,4 @@
-package com.greenjavadude.UniversalAPI.Utilities;
+package com.greenjavadude.UniversalAPI;
 
 import java.io.*;
 

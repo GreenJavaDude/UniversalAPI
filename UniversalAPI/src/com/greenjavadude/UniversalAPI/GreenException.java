@@ -1,4 +1,4 @@
-package com.greenjavadude.UniversalAPI.Utilities;
+package com.greenjavadude.UniversalAPI;
 
 public class GreenException extends Exception{
 	private static final long serialVersionUID = -2357425457278006252L;

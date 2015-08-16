@@ -12,6 +12,8 @@ public enum Log {
 	
 	private boolean debugmode;
 	
+	private boolean setup;
+	
 	/**Sets Log up, is necessary to use Log
 	 * 
 	 * @param enableConsole enables/disables non-debug messages
@@ -42,6 +44,8 @@ public enum Log {
 				}
 			}
 		});
+		
+		setup = true;
 		
 		logger("Log started");
 	}
@@ -77,12 +81,19 @@ public enum Log {
 	}
 	
 	private void display(String text){
+		if(!setup){
+			new GreenException("Log has not been initialized").printStackTrace();
+			System.exit(0);
+		}
+		
 		if(console){
 			System.out.print(text);
 		}
+		
 		if(display != null){
 			display.append(text);
 		}
+		
 		if(writer != null){
 			writer.write(text);
 		}

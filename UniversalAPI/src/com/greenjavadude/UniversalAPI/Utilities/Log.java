@@ -1,13 +1,10 @@
 package com.greenjavadude.UniversalAPI.Utilities;
 
 import java.io.PrintWriter;
-
 import javax.swing.JTextArea;
 
-public class Log {
-	private static final int LOGGER = -1;
-	public static final int INFO = 0;
-	public static final int ERROR = 1;
+public enum Log {
+	INSTANCE;
 	
 	private JTextArea display;
 	private boolean console;
@@ -15,29 +12,30 @@ public class Log {
 	
 	private boolean debugmode;
 	
-	/**Creates a new Log
+	/**Sets Log up, is necessary to use Log
 	 * 
-	 * @param enableConsole enables/disables console output
-	 * @param pathToSave path to log file, if you don't want a log file, say null
-	 * @param display JTextArea to which will be used as a log, if you don't want that, say null
-	 * @param debug enables/disables debug information
+	 * @param enableConsole enables/disables non-debug messages
+	 * @param debug enables/disables debug messages
+	 * @param area JTextArea to display log, set null to disable
+	 * @param path path to write log to
 	 */
-	public Log(boolean enableConsole, String pathToSave, JTextArea display, boolean debug){
-		this.display = display;
+	public void setup(boolean enableConsole, boolean debug, JTextArea area, String path){
+		display = area;
 		console = enableConsole;
 		debugmode = debug;
-		if(pathToSave != null){
+		
+		if(path != null){
 			try{
-				writer = new PrintWriter(pathToSave);
+				writer = new PrintWriter(path);
 			}catch(Exception e){
 				writer = null;
-				log("Failed to initialize writer", LOGGER);
+				logger("Failed to initialize writer");
 			}
 		}
 		
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run(){
-				log("Log stopped", LOGGER);
+				logger("Log stopped");
 				if(writer != null){
 					writer.flush();
 					writer.close();
@@ -45,32 +43,37 @@ public class Log {
 			}
 		});
 		
-		log("Log started", LOGGER);
+		logger("Log started");
 	}
 	
-	/**Logs a message
+	/**Logs info message
 	 * 
-	 * @param message the message that will be logged
-	 * @param type use for example Log.INFO to log info messages
+	 * @param message The message that will be logged
 	 */
-	public void log(String message, int type){
-		switch(type){
-		case INFO:
-			display("INFO: " + message + "\n");
-			break;
-		case ERROR:
-			display("ERROR: " + message + "\n");
-			break;
-		case LOGGER:
-			display("LOG: " + message + "\n");
-			break;
-		}
+	public void log(String message){
+		display("INFO: " + message + "\n");
 	}
 	
+	/**Logs a debug message, can be disabled in setup
+	 * 
+	 * @param message The debug-message that will be logged
+	 */
 	public void debug(String message){
 		if(debugmode){
 			display("DEBUG: " + message + "\n");
 		}
+	}
+	
+	/**Logs an error message
+	 * 
+	 * @param message The error-message that will be logged
+	 */
+	public void error(String message){
+		display("ERROR: " + message + "\n");
+	}
+	
+	private void logger(String message){
+		display("LOG: " + message + "\n");
 	}
 	
 	private void display(String text){

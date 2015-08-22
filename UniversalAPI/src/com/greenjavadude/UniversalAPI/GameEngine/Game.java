@@ -4,7 +4,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 
+import com.greenjavadude.UniversalAPI.Log;
+
 public class Game extends JPanel implements Runnable{
+	private Log l = Log.INSTANCE;
 	private static final long serialVersionUID = 1L;
 	private boolean running;
 	private int width;
@@ -34,7 +37,7 @@ public class Game extends JPanel implements Runnable{
 				Thread.sleep(5);
 			}
 		}catch(Exception e){
-			
+			l.error("Something went wrong in the draw() method");
 		}
 	}
 	
@@ -48,7 +51,7 @@ public class Game extends JPanel implements Runnable{
 		System.exit(0);
 	}
 	
-	public void draw(Graphics2D g){
+	public void draw(Graphics2D g) throws Exception{
 		
 	}
 	

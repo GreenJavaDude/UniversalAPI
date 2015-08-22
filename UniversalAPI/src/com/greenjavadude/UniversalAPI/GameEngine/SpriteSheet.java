@@ -4,7 +4,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
+import com.greenjavadude.UniversalAPI.Log;
+
 public class SpriteSheet {
+	private Log l = Log.INSTANCE;
 	private BufferedImage image;
 	private int width;
 	private int height;
@@ -22,7 +25,7 @@ public class SpriteSheet {
 		try{
 			image = ImageIO.read(new File(path));
 		}catch(Exception e){
-			System.out.println("Couldn't read spritesheet");
+			l.error("Couldn't read spritesheet");
 			return;
 		}
 		

@@ -1,11 +1,16 @@
 package com.greenjavadude.UniversalAPI.GameEngine;
 
 import java.io.File;
+
+import com.greenjavadude.UniversalAPI.Log;
+
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class Sound implements Runnable{
+	private Log l = Log.INSTANCE;
+	
 	public static final int SINGLE = 0;
 	public static final int LOOP = 1;
 	
@@ -38,7 +43,7 @@ public class Sound implements Runnable{
 			
 			new Thread(this).start();
 		}catch(Exception e){
-			System.out.println("Couldn't initialize music. (Wrong file?)");
+			l.error("Couldn't initialize music. (Wrong file?)");
 		}
 	}
 	

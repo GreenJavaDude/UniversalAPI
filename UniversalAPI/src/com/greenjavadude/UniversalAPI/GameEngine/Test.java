@@ -15,9 +15,8 @@ public class Test extends Game{
 	public Test(String title, int width, int height){
 		super(title, width, height);
 		
-		//this means: the spritesheet is made out of small images, each 16x16 pixels
-		//the spritesheet is 10 small images wide and 10 high
-		//(open res/SpriteSheet16x16.png and you'll get it)
+		//this means: the spritesheet is made out of 100 small images, each 16x16 pixels
+		//the spritesheet is 10 small images wide and 10 images high
 		spriteSheet = new SpriteSheet("res//SpriteSheet16x16.png", 16, 16, 10, 10);
 	}
 	
@@ -43,8 +42,17 @@ public class Test extends Game{
 		sound.stop();
 		game.stop();
 		
+		
 		//game.stop() must be called last as it exits the program
 		
-		//if you want to do custom stuff at shutdown add a shutdown hook
+		//if you want to do custom stuff at shutdown add a shutdown hook like this:
+		
+		/*
+		Runtime.getRuntime().addShutdownHook(new Thread(){
+			public void run(){
+				
+			}
+		});
+		*/
 	}
 }

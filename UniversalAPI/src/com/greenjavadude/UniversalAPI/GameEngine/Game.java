@@ -1,33 +1,36 @@
 package com.greenjavadude.UniversalAPI.GameEngine;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import javax.swing.*;
 
-import com.greenjavadude.UniversalAPI.Log;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Game extends JPanel implements Runnable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -166158607859089550L;
 	private boolean running;
 	private int width;
 	private int height;
-	private InputHandler inputHandler;
+	private InputHandler input;
 	
 	public Game(String title, int width, int height){
 		running = false;
 		this.width = width;
 		this.height = height;
-		JFrame frame = new JFrame(title);
+		JFrame frame = new JFrame();
+		frame.setTitle(title);
 		frame.setSize(width, height);
-		frame.setVisible(true);
-		this.setSize(this.width, this.height);
 		frame.setLocationRelativeTo(null);
-		frame.add(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		inputHandler = new InputHandler();
-		frame.addKeyListener(inputHandler);
+		
+		input = new InputHandler();
+		frame.addKeyListener(input);
+		
+		frame.add(this);
+		frame.setVisible(true);
 	}
-	
+
 	public void run(){
 		try{
 			while(running){
@@ -36,42 +39,34 @@ public class Game extends JPanel implements Runnable{
 				Thread.sleep(5);
 			}
 		}catch(Exception e){
-			l.error("Something went wrong in the draw() method");
+			
 		}
-	}
-	
-	public void start(){
-		running = true;
-		new Thread(this).start();
-	}
-	
-	public void stop(){
-		running = false;
-		System.exit(0);
-	}
-	
-	public void draw(Graphics2D g) throws Exception{
-		
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		BufferedImage image = (BufferedImage) createImage(width, height);
+		Graphics2D g2d = image.createGraphics();
 		
-		BufferedImage image = (BufferedImage) this.createImage(width, height);
-		Graphics2D gi = image.createGraphics();
-		try{
-			draw(gi);
-		}catch(Exception e){
-			//this gets called everytime, idk why but it's working...
-		}
-		
+		draw(g2d);
 		g.drawImage(image, 0, 0, null);
 		
 		g.dispose();
-		
-		//checks if not already disposed
-		if(!gi.equals(null)){
-			gi.dispose();
+		if(g2d != null){
+			g2d.dispose();
 		}
+	}
+	
+	public synchronized void draw(Graphics2D g){
+		
+	}
+	
+	public synchronized void start(){
+		running = true;
+		new Thread(this).start();
+	}
+	
+	public synchronized void stop(){
+		running = false;
 	}
 }

@@ -7,7 +7,6 @@ import javax.swing.*;
 import com.greenjavadude.UniversalAPI.Log;
 
 public class Game extends JPanel implements Runnable{
-	private Log l = Log.INSTANCE;
 	private static final long serialVersionUID = 1L;
 	private boolean running;
 	private int width;
@@ -21,7 +20,7 @@ public class Game extends JPanel implements Runnable{
 		JFrame frame = new JFrame(title);
 		frame.setSize(width, height);
 		frame.setVisible(true);
-		this.setSize(width, height);
+		this.setSize(this.width, this.height);
 		frame.setLocationRelativeTo(null);
 		frame.add(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

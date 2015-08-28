@@ -2,54 +2,75 @@ package com.greenjavadude.UniversalAPI.GameEngine;
 
 import java.io.File;
 
-import com.greenjavadude.UniversalAPI.Log;
-
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
-public class Sound implements Runnable{
-	private Log l = Log.INSTANCE;
-	
+public class Sound {
 	public static final int SINGLE = 0;
 	public static final int LOOP = 1;
 	
+	private boolean running;
+	private boolean paused;
 	private File file;
-	private int mode;
+	
 	private MediaPlayer mp;
 	
-	public void run(){
-		if(mode == 1){
-			mp.setCycleCount(MediaPlayer.INDEFINITE);
-			mp.play();
-		}
-		if(mode == 0){
-			mp.play();
-			this.stop();
-		}
+	public Sound(File file, int mode){
+		this.file = file;
+		running = false;
+		paused = false;
+		
+		JFXPanel panel = new JFXPanel();
+		panel.setEnabled(false);
+		Media media = new Media(this.file.toURI().toString());
+		mp = new MediaPlayer(media);
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(){
+			public void run(){
+				stopP();
+			}
+		});
 	}
 	
-	public void play(String path, int mode){
-		file = new File(path);
-		this.mode = mode;
-		try{
-			//this is used to initialize some stuff for the music
-			//the music is from the javafx package so this is necessary
-			JFXPanel panel = new JFXPanel();
-			panel.setEnabled(false);//if i don't use it's yellow
-			
-			Media media = new Media(file.toURI().toString());
-			mp = new MediaPlayer(media);
-			
-			new Thread(this).start();
-		}catch(Exception e){
-			l.error("Couldn't initialize music. (Wrong file?)");
-		}
+	public synchronized void play(){
+		running = true;
+		paused = false;
+		mp.play();
 	}
 	
-	public void stop(){
+	public synchronized void stop(){
+		running = false;
+		paused = false;
 		mp.stop();
-		file = null;
 		mp.dispose();
+	}
+	
+	public synchronized void pause(){
+		if(running && !paused){
+			paused = true;
+			mp.pause();
+		}
+	}
+	
+	public synchronized void skipTo(double d){
+		Duration dur = new Duration(d*1000);
+		
+		if(mp == null){
+			return;
+		}
+		
+		if(mp.getTotalDuration().greaterThan(dur)){
+			mp.seek(dur);
+		}
+	}
+	
+	public double getTotalDuration(){
+		return mp.getTotalDuration().toSeconds();
+	}
+	
+	private synchronized void stopP(){
+		stop();
 	}
 }

@@ -4,10 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-import com.greenjavadude.UniversalAPI.Log;
-
 public class SpriteSheet {
-	private Log l = Log.INSTANCE;
 	private BufferedImage image;
 	private int width;
 	private int height;
@@ -25,7 +22,6 @@ public class SpriteSheet {
 		try{
 			image = ImageIO.read(new File(path));
 		}catch(Exception e){
-			l.error("Couldn't read spritesheet");
 			return;
 		}
 		
@@ -36,27 +32,27 @@ public class SpriteSheet {
 		}
 	}
 
-	public BufferedImage getBigImage() {
+	public BufferedImage getBigImage(){
 		return image;
 	}
 
-	public int getWidth() {
+	public int getWidth(){
 		return width;
 	}
 
-	public int getHeight() {
+	public int getHeight(){
 		return height;
 	}
 
-	public int getRows() {
+	public int getRows(){
 		return rows;
 	}
 
-	public int getColumns() {
+	public int getColumns(){
 		return columns;
 	}
 
-	public BufferedImage[] getSprites() {
+	public BufferedImage[] getSprites(){
 		return sprites;
 	}
 	

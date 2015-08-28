@@ -1,58 +1,34 @@
 package com.greenjavadude.UniversalAPI.GameEngine;
 
-import java.awt.Graphics2D;
+import java.io.File;
 
-public class Test extends Game{
-	/**@author Green Java Dude
-	 * 
-	 * An example program that explains how stuff works.
-	 */
-	
-	private static final long serialVersionUID = 1L;
-	
-	private SpriteSheet spriteSheet;
-	
-	public Test(String title, int width, int height){
-		super(title, width, height);
-		
-		//this means: the spritesheet is made out of 100 small images, each 16x16 pixels
-		//the spritesheet is 10 small images wide and 10 images high
-		spriteSheet = new SpriteSheet("res//SpriteSheet16x16.png", 16, 16, 10, 10);
-	}
-	
-	public void draw(Graphics2D g){
-		//draw stuff from the spritesheet
-		g.drawImage(spriteSheet.getImage(1), 100, 300, null);
-		g.drawImage(spriteSheet.getImage(0), 100, 150, null);
-	}
-	
+public class Test{
 	public static void main(String[] args){
-		Test game = new Test("A Test Program", 800, 500);
-		Sound sound = new Sound();
-		
-		sound.play("insert .wav path here", Sound.LOOP);
-		game.start();
+		Sound sound = new Sound(new File("C://Programming//test.wav"), Sound.SINGLE);
+		sound.play();
 		
 		try{
-			Thread.sleep(10000);
+			Thread.sleep(2000);
 		}catch(Exception e){
 			
 		}
 		
-		sound.stop();
-		game.stop();
+		sound.pause();
 		
+		try{
+			Thread.sleep(2000);
+		}catch(Exception e){
+			
+		}
 		
-		//game.stop() must be called last as it exits the program
+		sound.play();
 		
-		//if you want to do custom stuff at shutdown add a shutdown hook like this:
+		try{
+			Thread.sleep(2000);
+		}catch(Exception e){
+			
+		}
 		
-		/*
-		Runtime.getRuntime().addShutdownHook(new Thread(){
-			public void run(){
-				
-			}
-		});
-		*/
+		sound.skipTo(sound.getTotalDuration() - 10);
 	}
 }
